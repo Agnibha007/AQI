@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AQI Prediction Software</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <body>
+    <div class="app-container">
+      <div class="header">AQI Detection and Indication Software</div>
+  
+      <div class="chat-container">
+        <div id="chat-messages" class="chat-messages"></div>
+  
+        <div class="chat-input-area">
+          <input type="text" id="user-input" placeholder="Ask me about air quality and pollution..." />
+          <button onclick="sendMessage()">Send</button>
+        </div>
+  
+        <button id="toggle-camera-btn" class="camera-toggle">Open Camera</button>
+  
+        <div id="camera-section" class="camera-section" style="display: none;">
+          <video id="video" autoplay playsinline muted></video>
+          <div class="camera-buttons">
+            <button onclick="captureImage()">Take Photo</button>
+            <button onclick="switchCamera()">Switch Camera</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <script src="script.js"></script>
+  </body>
+</html>
