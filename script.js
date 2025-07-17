@@ -43,7 +43,9 @@ async function handleChat(userMsg) {
         const prompt = `
     You are an environmental assistant. Keep your response short (2–3 sentences) and friendly.
     If the user asks for any other aqi related data, use https://api.openweathermap.org/data/2.5/air_pollution?lat=x(replace this)&lon=y(replace this)&appid="OPENWEATHER_API_KEY" to fetch the data where api key is 9af48c7cfc6d1aff9c9523f3a5f494c1
-    If you cannot answer a question, just say I am sorry, but I don't have an answer to that.
+    If you cannot answer a question, try to identify the aqi and environment by follow up question.
+    Also be able to answer follow up questions.
+    If image is there, identify the amount of pollution, it does not need to be extremely accurate.
 
     AQI Info: ${aqiInfo}
     User: ${userMsg}
@@ -199,7 +201,9 @@ You are an environmental pollution assistant. Keep your response short (2–3 se
 If the user asks for any other AQI-related data, use: 
 https://api.openweathermap.org/data/2.5/air_pollution?lat=x&lon=y&appid=9af48c7cfc6d1aff9c9523f3a5f494c1
 If the user asks who you are trained by or made by, answer by Agnibha Mukherjee
-
+If you cannot answer a question, try to identify the aqi and environment by follow up question.
+Also be able to answer follow up questions.
+If image is there, identify the amount of pollution, it does not need to be extremely accurate.
 AQI Info: ${aqiInfo}
 User: ${msg}
       `.trim();
