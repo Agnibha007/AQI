@@ -4,14 +4,15 @@ const chatBox = document.getElementById("chat-messages");
 let userLocation = null;
 
 navigator.geolocation.getCurrentPosition(
-  (pos) => {
+  position => {
+    console.log("Coords:", position.coords);
     userLocation = {
-      lat: pos.coords.latitude,
-      lon: pos.coords.longitude,
+      lat: position.coords.latitude,
+      lon: position.coords.longitude,
     };
   },
-  () => {
-    appendMessage("bot", "Location access denied. I can't fetch AQI.");
+  err => {
+    console.error("Location error:", err.message);
   }
 );
 
@@ -74,20 +75,20 @@ async function fetchAQI(lat, lon) {
 
   const aqiIndex = data.list[0].main.aqi;
   const aqiDesc = classifyAQI(aqiIndex);
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 2; i <= 6; i++) {
     if (aqiIndex === i) {
-      return `The Air Quality Index is around ${(i - 1) * 50}-${i * 50}, which is considered "${aqiDesc}".`;
+      return `The Air Quality Index is around ${(i - 2) * 50}-${(i-1) * 50}, which is considered "${aqiDesc}".`;
     }
   }
 }
 
 function classifyAQI(index) {
   switch (index) {
-    case 1: return "Good";
-    case 2: return "Moderate";
-    case 3: return "Unhealthy for sensitive groups";
-    case 4: return "Unhealthy";
-    case 5: return "Very Unhealthy";
+    case 2: return "Good";
+    case 3: return "Moderate";
+    case 4: return "Unhealthy for sensitive groups";
+    case 5: return "Unhealthy";
+    case 6: return "Very Unhealthy";
     default: return "Hazardous";
   }
 }
