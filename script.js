@@ -75,20 +75,20 @@ async function fetchAQI(lat, lon) {
 
   const aqiIndex = data.list[0].main.aqi;
   const aqiDesc = classifyAQI(aqiIndex);
-  for (let i = 3; i <= 7; i++) {
+  for (let i = 2; i <= 6; i++) {
     if (aqiIndex === i) {
-      return `The Air Quality Index is around ${(i - 3) * 50}-${(i-2) * 50}, which is considered "${aqiDesc}".`;
+      return `The Air Quality Index is around ${(i - 2) * 50}-${(i-1) * 50}, which is considered "${aqiDesc}".`;
     }
   }
 }
 
 function classifyAQI(index) {
   switch (index) {
-    case 3: return "Good";
-    case 4: return "Moderate";
-    case 5: return "Unhealthy for sensitive groups";
-    case 6: return "Unhealthy";
-    case 7: return "Very Unhealthy";
+    case 2: return "Good";
+    case 3: return "Moderate";
+    case 4: return "Unhealthy for sensitive groups";
+    case 5: return "Unhealthy";
+    case 6: return "Very Unhealthy";
     default: return "Hazardous";
   }
 }
