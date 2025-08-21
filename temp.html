@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Create AQI Model</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+<body>
+  <h2>Generating model.json...</h2>
+
+  <script>
+  async function createAndSaveModel() {
+    const model = tf.sequential();
+
+    // Input: 224x224 RGB image flattened
+    model.add(tf.layers.dense({inputShape: [224*224*3], units: 64, activation: 'relu'}));
+    model.add(tf.layers.dense({units: 3, activation: 'softmax'})); // Clear, Moderate, Polluted
+
+    model.compile({
+      optimizer: 'adam',
+      loss: 'categoricalCrossentropy',
+      metrics: ['accuracy']
+    });
+
+    // Save model as download
+    await model.save('downloads://aqi-model');
+    document.body.innerHTML += "<p>✅ Model saved! Check your downloads.</p>";
+  }
+  createAndSaveModel();
+  </script>
+</body>
+</html>
