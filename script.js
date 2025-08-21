@@ -92,6 +92,18 @@ async function fetchAQI(lat, lon) {
   }
 }
 
+
+function classifyAQI(index) {
+  switch (index) {
+    case 2: return "Good";
+    case 3: return "Moderate";
+    case 4: return "Unhealthy for sensitive groups";
+    case 5: return "Unhealthy";
+    case 6: return "Very Unhealthy";
+    default: return "Hazardous";
+  }
+}
+
 async function askGemini(promptText) {
   const GEMINI_API_KEY = "AIzaSyBWjbAVhT9_U0Y0Vxb8a51Xb7_ZYb_y9pM";
   const endpoint = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
