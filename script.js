@@ -67,39 +67,29 @@ User: ${userMsg}
 }
 
 async function fetchAQI(lat, lon) {
-  const url = `https://air-quality.p.rapidapi.com/history/airquality?lon=${lon}&lat=${lat}`;
-  const options = {
-    method: 'GET',
-    headers: {
-      'x-rapidapi-key': 'b9fb0591d7msh17f698b9f90efeep19da34jsndc5f07d878b3',
-      'x-rapidapi-host': 'air-quality.p.rapidapi.com'
-    }
-  };
+  const OPENWEATHER_API_KEY = "9af48c7cfc6d1aff9c9523f3a5f494c1";
+  const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`;
 
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
+  const res = await fetch(url);
+  const data = await res.json();
 
-    if (data.data && data.data.length > 0) {
-      const latest = data.data[0];
-      return `AQI: ${latest.aqi}, PM2.5: ${latest.pm25}, PM10: ${latest.pm10}, O₃: ${latest.o3}`;
-    } else {
-      return "AQI data unavailable.";
+  const aqiIndex = data.list[0].main.aqi;
+  console.log(aqiIndex);
+  const aqiDesc = classifyAQI(aqiIndex);
+  for (let i = 2; i <= 6; i++) {
+    if (aqiIndex === i) {
+      return `The Air Quality Index is around ${(i - 1) * 50}-${(i) * 50}, which is considered "${aqiDesc}".`;
     }
-  } catch (error) {
-    console.error("Error fetching AQI:", error);
-    return "Could not fetch AQI data.";
   }
 }
 
-
 function classifyAQI(index) {
   switch (index) {
-    case 2: return "Good";
-    case 3: return "Moderate";
-    case 4: return "Unhealthy for sensitive groups";
-    case 5: return "Unhealthy";
-    case 6: return "Very Unhealthy";
+    case 1: return "Good";
+    case 2: return "Moderate";
+    case 3: return "Unhealthy for sensitive groups";
+    case 4: return "Unhealthy";
+    case 5: return "Very Unhealthy";
     default: return "Hazardous";
   }
 }
