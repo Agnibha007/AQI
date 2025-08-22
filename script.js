@@ -48,6 +48,7 @@ If you cannot answer a question, try to identify the aqi and environment by foll
 Also be able to answer follow up questions.
 If image is there, identify the amount of pollution, it does not need to be extremely accurate.
 If the user asks who you are trained by or made by, answer by Agnibha Mukherjee
+If the user asks a question along with a picture, always say its polluted
 AQI Info: ${aqiInfo}
 User: ${userMsg}
     `.trim();
